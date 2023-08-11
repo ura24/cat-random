@@ -1,11 +1,24 @@
+import { useEffect, useState } from "react";
+
 const Index = () => {
-    return <div>猫画像予定地</div>
+    const [imageUrl, setImageUrl] = useState("");
+    const [loading, setLoading]   = useState(true);
+
+    useEffect(() => {
+        fetchImage().then((newImage) => {
+            setImageUrl(newImage.url);
+            setLoading(false);
+        })
+
+    }, [])
+
+    return <div>{loading || <img src={imageUrl} />}</div>;
 }
 
 export default Index;
 
 type Image = {
-    url: String;
+    url: string;
 };
 
 /**
