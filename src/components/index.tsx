@@ -4,6 +4,9 @@ const Index = () => {
     const [imageUrl, setImageUrl] = useState("");
     const [loading, setLoading]   = useState(true);
 
+    /**
+     * マウント時に画像を読み込む
+     */
     useEffect(() => {
         fetchImage().then((newImage) => {
             setImageUrl(newImage.url);
@@ -12,7 +15,22 @@ const Index = () => {
 
     }, [])
 
-    return <div>{loading || <img src={imageUrl} />}</div>;
+    /**
+     * ボタンをクリックした時に画像を読み込む
+     */
+    const handClick = async () => {
+        setLoading(true);
+        const newImage = await fetchImage();
+        setImageUrl(newImage.url);
+        setLoading(false);
+    }
+
+    return (
+        <div>
+            <button onClick={handClick}>他のにゃんこも見る</button>
+            <div>{loading || <img src={imageUrl} />}</div>
+        </div>
+    )
 }
 
 export default Index;
