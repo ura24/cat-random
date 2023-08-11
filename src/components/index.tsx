@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import styles from "../css/index.module.css";
 
 const Index = () => {
     const [imageUrl, setImageUrl] = useState("");
-    const [loading, setLoading]   = useState(true);
+    const [loading, setLoading] = useState(true);
 
     /**
      * マウント時に画像を読み込む
@@ -18,7 +19,7 @@ const Index = () => {
     /**
      * ボタンをクリックした時に画像を読み込む
      */
-    const handClick = async () => {
+    const handleClick = async () => {
         setLoading(true);
         const newImage = await fetchImage();
         setImageUrl(newImage.url);
@@ -26,9 +27,13 @@ const Index = () => {
     }
 
     return (
-        <div>
-            <button onClick={handClick}>他のにゃんこも見る</button>
-            <div>{loading || <img src={imageUrl} />}</div>
+        <div className={styles.page}>
+            <button onClick={handleClick} className={styles.button}>
+                他のにゃんこも見る
+            </button>
+            <div className={styles.frame}>
+                {loading || <img src={imageUrl} className={styles.img} />}
+            </div>
         </div>
     )
 }
